@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Özgür Saklanmaz</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.page-hero {
+  max-width: 1200px; margin: 0 auto;
+  padding: 140px 56px 80px;
+  display: grid; grid-template-columns: 1fr 380px;
+  gap: 80px; align-items: start;
+}
+
+.page-tag {
+  font-size: 11px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.page-tag::before {
+  content: ''; display: block;
+  width: 24px; height: 1px; background: var(--accent);
+}
+
+.page-hero h1 {
+  font-size: clamp(46px, 5.5vw, 80px);
+  font-weight: 800; letter-spacing: -3px;
+  line-height: 0.95; margin-bottom: 32px;
+}
+.page-hero h1 em {
+  font-style: italic;
+  font-family: 'Instrument Serif', serif;
+  background: linear-gradient(135deg, var(--accent), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.bio-text {
+  font-size: 15px; line-height: 1.9; color: var(--soft);
+  margin-bottom: 20px;
+}
+.bio-text strong { color: var(--text); font-weight: 600; }
+.bio-text a { color: var(--cyan); text-decoration: none; }
+.bio-text a:hover { text-decoration: underline; }
+
+.contact-list {
+  margin-top: 40px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.contact-row {
+  display: flex; align-items: center; gap: 14px;
+  text-decoration: none; color: var(--soft);
+  font-size: 13px; font-weight: 500;
+  padding: 12px 16px;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--card);
+  transition: border-color .2s, color .2s, transform .2s;
+  cursor: none;
+}
+.contact-row:hover { border-color: var(--cyan); color: var(--cyan); transform: translateX(4px); }
+.contact-icon {
+  width: 36px; height: 36px; border-radius: 7px;
+  background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.14);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--cyan); flex-shrink: 0;
+}
+.contact-icon svg { width: 15px; height: 15px; }
+
+.about-aside { position: sticky; top: 100px; }
+.aside-photo {
+  width: 100%; aspect-ratio: 3/4;
+  border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--card); margin-bottom: 24px;
+  position: relative;
+}
+.aside-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top;
+  display: block; transition: transform .5s;
+}
+.aside-photo:hover img { transform: scale(1.03); }
+.aside-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,14,.45) 0%, transparent 40%);
+  pointer-events: none;
+}
+.aside-photo-ph {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+}
+.aside-photo-ph-init {
+  font-size: 80px; font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.aside-meta { font-size: 12px; color: var(--muted); }
+.aside-meta span { color: var(--soft); }
+.aside-meta-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.aside-meta-row:last-child { border-bottom: none; }
+
+.skills-section {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 56px 100px;
+}
+.skills-cats { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.skill-cat {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 28px 24px;
+  transition: border-color .25s;
+}
+.skill-cat:hover { border-color: rgba(59,130,246,0.3); }
+.skill-cat-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+}
+.skill-cat-title svg { width: 14px; height: 14px; opacity: .7; }
+.skill-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.skill-chip {
+  font-size: 12px; font-weight: 500;
+  padding: 5px 11px; border-radius: 5px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  color: var(--soft);
+  transition: background .2s, color .2s, border-color .2s;
+}
+.skill-chip:hover { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.3); color: var(--text); }
+.skill-chip.star {
+  background: rgba(96,165,250,0.07);
+  border-color: rgba(96,165,250,0.2);
+  color: var(--cyan);
+}
+
+.exp-section {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 56px 120px;
+}
+.exp-list { display: flex; flex-direction: column; gap: 0; position: relative; }
+.exp-list::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 1px; background: var(--border);
+}
+.exp-item {
+  padding: 32px 0 32px 36px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.exp-item::before {
+  content: '';
+  position: absolute; left: -4px; top: 40px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(59,130,246,.5);
+}
+.exp-item:last-child { border-bottom: none; }
+.exp-period { font-size: 11px; font-weight: 600; color: var(--cyan); letter-spacing: 1px; margin-bottom: 8px; }
+.exp-company { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px; }
+.exp-role { font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 12px; }
+.exp-desc { font-size: 13px; line-height: 1.8; color: var(--soft); max-width: 600px; }
+
+@media (max-width: 960px) {
+  .page-hero { grid-template-columns: 1fr; padding: 110px 24px 80px; gap: 40px; }
+  .about-aside { position: static; }
+  .aside-photo { max-width: 280px; margin: 0 auto 24px; }
+  .skills-section, .exp-section { padding-left: 24px; padding-right: 24px; }
+  .skills-cats { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="c-dot"></div>
+<div id="c-ring"></div>
+<canvas id="mag-canvas"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-mark">ÖS</div>
+    Özgür Saklanmaz
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="mailto:saklanmazozgur@gmail.com" class="nav-cta">Let's Talk</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="reveal">
+    <div class="page-tag">About Me</div>
+    <h1>Engineer,<br><em>Builder,</em><br>Team Lead.</h1>
+
+    <p class="bio-text">
+      I'm <strong>Özgür Saklanmaz</strong> — a software engineer based in <strong>Turkey</strong>, currently working as Software Engineering Team Lead at <strong>Saykal Electronics</strong>, with 5+ years of professional experience across mobile, backend, and cloud technologies.
+    </p>
+    <p class="bio-text">
+      My work sits at the intersection of technical depth and product thinking. I believe great software isn't just about correct code — it's about understanding <strong>why</strong> you're building something, who will use it, and how it will grow.
+    </p>
+    <p class="bio-text">
+      I lead by example: I still write code, review PRs, design architecture, and stay close to the ground level. From microservices on AWS to cross-platform mobile apps in Flutter &amp; MAUI, I care about the full stack. Recently I've been diving deep into <strong>AI Agent development</strong> and distributed systems.
+    </p>
+    <p class="bio-text">
+      Outside of work I explore new technologies obsessively, ship side projects, and follow the intersection of design and engineering — because the best products are where those two meet.
+    </p>
+
+    <div class="contact-list">
+      <a href="mailto:saklanmazozgur@gmail.com" class="contact-row">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+        </div>
+        saklanmazozgur@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/saklanmazozgur/" target="_blank" class="contact-row">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+        linkedin.com/in/saklanmazozgur
+      </a>
+      <a href="tel:+905448664458" class="contact-row">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.7a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.12-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        +90 544 866 44 58
+      </a>
+    </div>
+  </div>
+
+  <div class="about-aside reveal-r" style="transition-delay:.2s;">
+    <div class="aside-photo">
+      <img src="assets/profile.jpg" alt="Özgür Saklanmaz"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="aside-photo-ph" style="display:none;">
+        <div class="aside-photo-ph-init">ÖS</div>
+      </div>
+    </div>
+    <div class="aside-meta">
+      <div class="aside-meta-row"><span style="color:var(--muted)">Company</span><span>Saykal Electronics</span></div>
+      <div class="aside-meta-row"><span style="color:var(--muted)">Role</span><span>Engineering Team Lead</span></div>
+      <div class="aside-meta-row"><span style="color:var(--muted)">Experience</span><span>5+ Years</span></div>
+      <div class="aside-meta-row"><span style="color:var(--muted)">Location</span><span>Turkey</span></div>
+      <div class="aside-meta-row"><span style="color:var(--muted)">Focus</span><span>Mobile · Backend · Cloud</span></div>
+      <div class="aside-meta-row"><span style="color:var(--muted)">Status</span><span style="color:var(--soft)">● Actively Building</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="skills-section">
+  <div class="sh reveal">
+    <span class="sh-num">02</span>
+    <h2 class="sh-title">Skills & Stack</h2>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="skills-cats">
+    <div class="skill-cat reveal" style="transition-delay:.05s">
+      <div class="skill-cat-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Languages &amp; Frameworks
+      </div>
+      <div class="skill-chips">
+        <span class="skill-chip star">C#</span>
+        <span class="skill-chip star">ASP.NET Core</span>
+        <span class="skill-chip star">Web API</span>
+        <span class="skill-chip star">Flutter</span>
+        <span class="skill-chip">SQL</span>
+        <span class="skill-chip">MAUI</span>
+        <span class="skill-chip">Xamarin</span>
+        <span class="skill-chip">WPF</span>
+        <span class="skill-chip">UWP</span>
+        <span class="skill-chip">WinForms</span>
+        <span class="skill-chip">ASP.NET MVC</span>
+        <span class="skill-chip">.NET / .NET Core</span>
+        <span class="skill-chip">Syncfusion</span>
+        <span class="skill-chip">DevExpress</span>
+      </div>
+    </div>
+
+    <div class="skill-cat reveal" style="transition-delay:.1s">
+      <div class="skill-cat-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Infrastructure &amp; Cloud
+      </div>
+      <div class="skill-chips">
+        <span class="skill-chip star">AWS</span>
+        <span class="skill-chip star">Docker</span>
+        <span class="skill-chip star">Kubernetes</span>
+        <span class="skill-chip">Amazon EC2</span>
+        <span class="skill-chip">Amazon RDS</span>
+        <span class="skill-chip">MongoDB</span>
+        <span class="skill-chip">Docker Swarm</span>
+        <span class="skill-chip">Microservices</span>
+      </div>
+    </div>
+
+    <div class="skill-cat reveal" style="transition-delay:.15s">
+      <div class="skill-cat-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Patterns &amp; Practices
+      </div>
+      <div class="skill-chips">
+        <span class="skill-chip star">OOP</span>
+        <span class="skill-chip star">Software Architecture</span>
+        <span class="skill-chip star">AI Agent Dev</span>
+        <span class="skill-chip">MVC</span>
+        <span class="skill-chip">MVVM</span>
+        <span class="skill-chip">UI / UX</span>
+        <span class="skill-chip">Figma</span>
+        <span class="skill-chip">Adobe XD</span>
+        <span class="skill-chip">Leadership</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="exp-section">
+  <div class="sh reveal">
+    <span class="sh-num">03</span>
+    <h2 class="sh-title">Experience</h2>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="exp-list">
+    <div class="exp-item reveal">
+      <div class="exp-period">Haz 2022 — Devam ediyor &middot; 3 yıl 9 ay</div>
+      <div class="exp-company">Saykal Electronics</div>
+      <div class="exp-role">Software Engineering Team Leader &middot; Remote</div>
+      <div class="exp-desc">
+        Mühendislik ekibine liderlik ediyorum; mimari kararlar alarak, geliştiricileri mentorluk yaparak ve hem mobil hem backend sistemlerde production yazılımı teslim ediyorum. ASP.NET Core Web API, Docker, Kubernetes, AWS (EC2 &amp; RDS), Docker Swarm ve Microservices ile ölçeklenebilir backend'ler tasarlıyorum. Flutter, MAUI ve Xamarin ile cross-platform mobil uygulamalar geliştiriyorum. MongoDB ve SQL veritabanlarını yönetiyor; AI Agent geliştirme projelerini liderlik ediyorum.
+      </div>
+    </div>
+    <div class="exp-item reveal" style="transition-delay:.08s;">
+      <div class="exp-period">Eki 2020 — Haz 2022 &middot; 1 yıl 9 ay</div>
+      <div class="exp-company">Saykal Electronics</div>
+      <div class="exp-role">Software Engineer</div>
+      <div class="exp-desc">
+        C# ile kurumsal uygulamalar ve WPF / UWP / WinForms masaüstü yazılımlar geliştirdim. Xamarin ile cross-platform mobil projeler, Flutter ile modern uygulamalar ürettim. Microservices mimarisine geçiş sürecine katkı sağladım; SQL, Syncfusion ve .NET ile çalıştım.
+      </div>
+    </div>
+    <div class="exp-item reveal" style="transition-delay:.16s;">
+      <div class="exp-period">Eki 2019 — Eyl 2020 &middot; 1 yıl</div>
+      <div class="exp-company">3E Industrial Engineering</div>
+      <div class="exp-role">Software Engineer &middot; Tam zamanlı &middot; Türkiye</div>
+      <div class="exp-desc">
+        C# ile endüstriyel otomasyon yazılımları ve kurumsal masaüstü uygulamalar (WPF, UWP) geliştirdim. DevExpress UI bileşenleri, ASP.NET, SQL ve .NET framework ile çalıştım.
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <span>© 2025 Özgür Saklanmaz</span>
+  <div class="footer-links">
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="https://www.linkedin.com/in/saklanmazozgur/" target="_blank">LinkedIn</a>
+    <a href="mailto:saklanmazozgur@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script src="magnetic.js"></script>
+</body>
+</html>

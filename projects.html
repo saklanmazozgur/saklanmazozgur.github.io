@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Özgür Saklanmaz</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.page-header {
+  max-width: 1200px; margin: 0 auto;
+  padding: 140px 56px 72px;
+}
+.page-tag {
+  font-size: 11px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.page-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+
+.page-header h1 {
+  font-size: clamp(48px, 6vw, 84px);
+  font-weight: 800; letter-spacing: -3px; line-height: 0.95;
+  margin-bottom: 24px;
+}
+.page-header h1 em {
+  font-style: italic;
+  font-family: 'Instrument Serif', serif;
+  background: linear-gradient(135deg, var(--accent), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.page-header p {
+  font-size: 15px; line-height: 1.75; color: var(--soft);
+  max-width: 520px;
+}
+
+.projects-wrap {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 56px 120px;
+}
+
+.proj-featured {
+  display: grid; grid-template-columns: 1fr 1fr;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+  margin-bottom: 24px;
+  text-decoration: none; color: inherit; cursor: none;
+  transition: border-color .35s, transform .35s, box-shadow .35s;
+}
+.proj-featured:hover {
+  border-color: rgba(123,94,167,0.45);
+  transform: translateY(-5px);
+  box-shadow: 0 32px 80px rgba(0,0,0,.5);
+}
+.proj-img {
+  position: relative; overflow: hidden;
+  background: linear-gradient(145deg, #130d2a, #0a0a1c);
+  display: flex; align-items: center; justify-content: center;
+  min-height: 420px;
+}
+.proj-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .55s; }
+.proj-featured:hover .proj-img img { transform: scale(1.05); }
+.proj-img-ph {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.proj-img-ph-big {
+  font-size: 90px; font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.proj-img-ph-sub { font-size: 10px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; }
+.proj-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, transparent 50%, var(--card));
+  pointer-events: none;
+}
+
+.proj-body {
+  padding: 52px 48px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.proj-platform {
+  font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--cyan); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.proj-platform::before { content: ''; width: 20px; height: 1px; background: var(--cyan); }
+.proj-name {
+  font-size: 36px; font-weight: 800; letter-spacing: -1.5px;
+  line-height: 1.05; margin-bottom: 16px;
+}
+.proj-desc {
+  font-size: 13px; line-height: 1.9; color: var(--soft); margin-bottom: 28px;
+}
+.proj-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 36px; }
+.proj-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--text);
+  padding: 11px 22px;
+  background: rgba(123,94,167,0.12);
+  border: 1px solid rgba(123,94,167,0.25);
+  border-radius: 8px; text-decoration: none; cursor: none;
+  transition: background .2s, border-color .2s, transform .2s; width: fit-content;
+}
+.proj-link:hover { background: rgba(123,94,167,0.25); border-color: var(--accent); transform: translateX(3px); }
+.proj-link svg { fill: currentColor; }
+
+.proj-small-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin-top: 24px;
+}
+
+.proj-small {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: border-color .3s, transform .3s, box-shadow .3s;
+  cursor: none;
+}
+.proj-small:hover {
+  border-color: rgba(78,205,196,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0,0,0,.4);
+}
+.proj-small-img {
+  height: 160px; overflow: hidden;
+  background: linear-gradient(135deg, #0f0a22, #08081a);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px; font-weight: 800;
+  background: var(--surface);
+}
+.proj-small-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+.proj-small-name { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
+.proj-small-desc { font-size: 12px; line-height: 1.75; color: var(--soft); flex: 1; margin-bottom: 16px; }
+.proj-small-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+.proj-small-link {
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  display: flex; align-items: center; gap: 6px;
+  text-decoration: none; transition: color .2s; cursor: none;
+}
+.proj-small-link:hover { color: var(--cyan); }
+.proj-small-link svg { width: 12px; height: 12px; }
+
+.proj-soon {
+  border: 1px dashed var(--border);
+  background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 10px;
+  padding: 40px; text-align: center;
+  min-height: 240px;
+  border-radius: 12px;
+  color: var(--muted);
+}
+.proj-soon .soon-icon { font-size: 32px; opacity: .4; }
+.proj-soon .soon-label { font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+.proj-soon .soon-sub { font-size: 11px; color: var(--border); }
+
+@media (max-width: 960px) {
+  .page-header { padding: 110px 24px 60px; }
+  .projects-wrap { padding-left: 24px; padding-right: 24px; }
+  .proj-featured { grid-template-columns: 1fr; }
+  .proj-img { min-height: 240px; }
+  .proj-img-overlay { background: linear-gradient(to bottom, transparent 50%, var(--card)); }
+  .proj-small-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="c-dot"></div>
+<div id="c-ring"></div>
+<canvas id="mag-canvas"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-mark">ÖS</div>
+    Özgür Saklanmaz
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="mailto:saklanmazozgur@gmail.com" class="nav-cta">Let's Talk</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<div class="page-header">
+  <div class="page-tag reveal">Projects</div>
+  <h1 class="reveal" style="transition-delay:.05s;">Things I've<br><em>Built.</em></h1>
+  <p class="reveal" style="transition-delay:.1s;">
+    A selection of projects I've shipped — consumer apps, internal tools, and side experiments. Each one taught me something new.
+  </p>
+</div>
+
+<div class="projects-wrap">
+
+  <a href="https://play.google.com/store/apps/details?id=com.osdevelop.touchaapp"
+     target="_blank" class="proj-featured reveal">
+    <div class="proj-img">
+      <img src="assets/toucha-app.png" alt="Toucha!"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="proj-img-ph" style="display:none;">
+        <div class="proj-img-ph-big">T!</div>
+        <div class="proj-img-ph-sub">Toucha!</div>
+      </div>
+      <div class="proj-img-overlay"></div>
+    </div>
+    <div class="proj-body">
+      <div class="proj-platform">Live on Google Play · Android</div>
+      <div class="proj-name">Toucha!<br>Finger Chooser</div>
+      <div class="proj-desc">
+        A multi-touch decision-making app for groups. Everyone places a finger on the screen simultaneously — Toucha! picks the lucky one. Fast, fair, and surprisingly addictive. Built entirely in Flutter with a polished multi-touch input engine.
+      </div>
+      <div class="proj-tags">
+        <span class="chip chip-p">Flutter</span>
+        <span class="chip chip-p">Dart</span>
+        <span class="chip chip-c">Android</span>
+        <span class="chip chip-c">Multi-Touch</span>
+        <span class="chip chip-w">Game Design</span>
+        <span class="chip chip-w">7 Modes</span>
+      </div>
+      <div class="proj-link">
+        <svg width="14" height="14" viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.83 1.01-1.3 1.7-.78l14 8.5c.63.38.63 1.28 0 1.66l-14 8.5c-.69.52-1.7.05-1.7-.78z"/></svg>
+        Open on Google Play
+      </div>
+    </div>
+  </a>
+
+  <div class="proj-small-grid">
+
+    <div class="proj-small reveal" style="transition-delay:.05s;">
+      <div class="proj-small-img">
+        <span style="background:linear-gradient(135deg,var(--accent),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">⚡</span>
+      </div>
+      <div class="proj-small-body">
+        <div class="proj-small-name">Internal Dashboard</div>
+        <div class="proj-small-desc">A real-time operational dashboard built for a production environment — custom data visualizations, live metrics, team notifications.</div>
+        <div class="proj-small-tags">
+          <span class="chip chip-p" style="font-size:10px;">ASP.NET Core</span>
+          <span class="chip chip-c" style="font-size:10px;">AWS</span>
+        </div>
+        <span class="proj-small-link">
+          Private / NDA
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="proj-small reveal" style="transition-delay:.1s;">
+      <div class="proj-small-img">
+        <span style="background:linear-gradient(135deg,var(--cyan),var(--warm));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">🏗</span>
+      </div>
+      <div class="proj-small-body">
+        <div class="proj-small-name">Microservice Platform</div>
+        <div class="proj-small-desc">Designed and led the migration of a monolithic backend to a containerized microservices architecture on Kubernetes / AWS EKS.</div>
+        <div class="proj-small-tags">
+          <span class="chip chip-p" style="font-size:10px;">Docker</span>
+          <span class="chip chip-c" style="font-size:10px;">Kubernetes</span>
+          <span class="chip chip-w" style="font-size:10px;">AWS EKS</span>
+        </div>
+        <span class="proj-small-link">
+          Private / NDA
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="proj-soon reveal" style="transition-delay:.15s;">
+      <div class="soon-icon">◎</div>
+      <div class="soon-label">Next Project</div>
+      <div class="soon-sub">Currently building something new...</div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <span>© 2025 Özgür Saklanmaz</span>
+  <div class="footer-links">
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="https://www.linkedin.com/in/saklanmazozgur/" target="_blank">LinkedIn</a>
+    <a href="mailto:saklanmazozgur@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script src="magnetic.js"></script>
+</body>
+</html>
